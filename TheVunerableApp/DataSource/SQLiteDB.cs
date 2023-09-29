@@ -20,7 +20,7 @@ namespace TheVunerableApp.DataSource
     internal class SQLiteDB:DBAdapter
     {
         public string ConnectionString = "Data Source=VulApp.db";
-        public string Filepath = @"C:\Users\mbamin\source\repos\TheVunerableApp\TheVunerableApp\DB\Bank.sqlite";
+        public string Filepath = @"C:\Users\mbamin\source\repos\TheVunerableApp\TheVunerableApp\DB\Bank.sqlite"; //cwe direct folder path 
         public bool ConnectToDS()
         {
             using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
@@ -58,7 +58,7 @@ namespace TheVunerableApp.DataSource
         }
         public Customer GetCustomerDetailsFromDB(string customerId)
         {
-            string customerQuery = "SELECT Name, SirName, Email, GovId FROM User WHERE UserId = @userId";
+            string customerQuery = "SELECT Name, SirName, Email, GovId FROM User WHERE UserId = @userId"; // cwe- 89 sql injection
             Customer customer = null;
 
             using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))

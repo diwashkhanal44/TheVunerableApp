@@ -17,12 +17,12 @@ using TheVunerableApp.Model;
 
 namespace TheVunerableApp.Controller
 {
-    public static class UserController
+    public static class UserController //cwe-306 missing authentication for critical function
     {
         public static string CreateUser(UserType type, string govId, string name, string sName, string email, string password, DateTime startDate, Position position, Role role, string branchName, string branchId)
         {
             SQLiteDB sql = new SQLiteDB(); 
-            if (type == UserType.Admin) // Admin
+            if (type == UserType.Admin) // Admin cwe-798 use of hard core credintials
             {
                 Admin admin = new Admin(govId, name, sName, email, password, startDate, position, role, branchName, branchId);
                 sql.CreateUserInDB(admin, 1);
@@ -40,7 +40,7 @@ namespace TheVunerableApp.Controller
             List<string> accountNumbers = db.GetAllAccountsFromDB(customerId);
             List<string> balances = new List<string>();
 
-            for (int i = 0; i<=accountNumbers.Count; i++)
+            for (int i = 0; i<=accountNumbers.Count; i++)// cwe-125 out of bounds read , correct i=0, i<accountNumbers,count, i++
             {
                 balances[i] = accountNumbers[i] +"-"+ db.GetBalance(accountNumbers[i]);
             }

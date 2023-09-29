@@ -45,24 +45,25 @@ namespace TheVunerableApp
 
         }
 
-        private static void PrintFilePathsFromAppSettings()
+        private static void PrintFilePathsFromAppSettings()// cwe 
         {
-            Console.WriteLine(TransactionController.getTRPath());
+            Console.WriteLine(TransactionController.getTRPath()); 
         }        
         private static void SearchCustomerByAccountNumeber() 
         {
-            List<Customer> customers = UserController.SearchCustomerByAccountNumber("31146289");
-            Console.WriteLine(customers[0]);
+            List<Customer> customers = UserController.SearchCustomerByAccountNumber("31146289"); //cwe-20 account number not validated
+            Console.WriteLine(customers[0]);//cwe 119 -Improper Restriction of Operations within the Bounds of a Memory Buffer
         }
         private static void CreateUser() 
         {
             AdminView.CreateUser();
         }
-        private static void UpdateCustomerDetails() 
+        private static void UpdateCustomerDetails() //cwe-79 improper neutrilization of input during webpage generation (xss)
         {
-            UserController.UpdateUser("6763996216", "Jean", "Grey", "j.grey@xmen.com", "321-456-9876");
+            UserController.UpdateUser("6763996216", "Jean", "Grey", "j.grey@xmen.com", "321-456-9876");//cwe-287 improper authentication
         }
-        private static void DisplayUserDetails() 
+        private static void DisplayUserDetails() //CWE-862: Missing Authorization: 
+        //If the DisplayUserDetails method allows anyone to retrieve and display user details without proper authorization checks, this CWE may be relevant. It's important to ensure that only authorized users can access and view user details.
         {
             Customer customer = UserController.DisplayUserDetails("SB19-87204084A");  
             Console.WriteLine(customer);

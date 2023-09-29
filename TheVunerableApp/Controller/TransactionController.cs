@@ -20,14 +20,14 @@ namespace TheVunerableApp.Controller
         public static string getTRPath()
         {
             LocalStore store = new LocalStore();
-            return store.FilePath;
+            return store.FilePath; // cwe 22- improper limitation of a pathname to a restricted direcroty
         }
 
         public static string StoreTransactions(string sAccount, double amount, string tAccount)
         {
             LocalStore store = new LocalStore();
             Transaction transaction = new Transaction(sAccount, amount, tAccount);
-            store.StoreTransactions(transaction);
+            store.StoreTransactions(transaction); // cwe-434 unrestricted upload of file with dangerous type
 
             SQLiteDB db = new SQLiteDB();
             db.StoreTransaction(transaction);
@@ -35,7 +35,7 @@ namespace TheVunerableApp.Controller
             return transaction.TransactionId;
         }
 
-        public static void LoadTransaction(string path)
+        public static void LoadTransaction(string path) 
         {
             LocalStore store = new LocalStore();
 
